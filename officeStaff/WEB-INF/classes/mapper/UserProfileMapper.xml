@@ -1,0 +1,436 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.officestaff.dao.UserProfileMapper">
+  <resultMap id="BaseResultMap" type="com.officestaff.bean.UserProfile">
+    <id column="user_profile_Id" jdbcType="INTEGER" property="userProfileId" />
+    <result column="user_profile_name" jdbcType="VARCHAR" property="userProfileName" />
+    <result column="user_profile_age" jdbcType="VARCHAR" property="userProfileAge" />
+    <result column="user_profile_gender" jdbcType="CHAR" property="userProfileGender" />
+    <result column="user_profile_provice" jdbcType="VARCHAR" property="userProfileProvice" />
+    <result column="user_profile_city" jdbcType="VARCHAR" property="userProfileCity" />
+    <result column="user_profile_joined" jdbcType="TIMESTAMP" property="userProfileJoined" />
+    <result column="user_profile_lastOnline" jdbcType="TIMESTAMP" property="userProfileLastonline" />
+    <result column="user_profile_pictures" jdbcType="VARCHAR" property="userProfilePictures" />
+    <result column="user_profile_headPhoto" jdbcType="VARCHAR" property="userProfileHeadphoto" />
+    <result column="user_profile_birth" jdbcType="TIMESTAMP" property="userProfileBirth" />
+    <result column="user_profile_Comment" jdbcType="VARCHAR" property="userProfileComment" />
+    <result column="user_profile_phone" jdbcType="VARCHAR" property="userProfilePhone" />
+    <result column="user_profile_website" jdbcType="VARCHAR" property="userProfileWebsite" />
+    <result column="userId" jdbcType="INTEGER" property="userid" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    user_profile_Id, user_profile_name, user_profile_age, user_profile_gender, user_profile_provice, 
+    user_profile_city, user_profile_joined, user_profile_lastOnline, user_profile_pictures, 
+    user_profile_headPhoto, user_profile_birth, user_profile_Comment, user_profile_phone, 
+    user_profile_website, userId
+  </sql>
+  <select id="select" parameterType="com.officestaff.bean.UserProfileExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from user_profile
+  </select>
+  <select id="selectByExample" parameterType="com.officestaff.bean.UserProfileExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from user_profile
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from user_profile
+    where user_profile_Id = #{userProfileId,jdbcType=INTEGER}
+  </select>
+  <select id="selectByName" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from user_profile
+    where user_profile_Name = #{userProfileName,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from user_profile
+    where user_profile_Id = #{userProfileId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.officestaff.bean.UserProfileExample">
+    delete from user_profile
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.officestaff.bean.UserProfile">
+    insert into user_profile (user_profile_Id, user_profile_name, user_profile_age, 
+      user_profile_gender, user_profile_provice, user_profile_city, 
+      user_profile_joined, user_profile_lastOnline, 
+      user_profile_pictures, user_profile_headPhoto, 
+      user_profile_birth, user_profile_Comment, 
+      user_profile_phone, user_profile_website, userId
+      )
+    values (#{userProfileId,jdbcType=INTEGER}, #{userProfileName,jdbcType=VARCHAR}, #{userProfileAge,jdbcType=VARCHAR}, 
+      #{userProfileGender,jdbcType=CHAR}, #{userProfileProvice,jdbcType=VARCHAR}, #{userProfileCity,jdbcType=VARCHAR}, 
+      #{userProfileJoined,jdbcType=TIMESTAMP}, #{userProfileLastonline,jdbcType=TIMESTAMP}, 
+      #{userProfilePictures,jdbcType=VARCHAR}, #{userProfileHeadphoto,jdbcType=VARCHAR}, 
+      #{userProfileBirth,jdbcType=TIMESTAMP}, #{userProfileComment,jdbcType=VARCHAR}, 
+      #{userProfilePhone,jdbcType=VARCHAR}, #{userProfileWebsite,jdbcType=VARCHAR}, #{userid,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.officestaff.bean.UserProfile">
+    insert into user_profile
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userProfileId != null">
+        user_profile_Id,
+      </if>
+      <if test="userProfileName != null">
+        user_profile_name,
+      </if>
+      <if test="userProfileAge != null">
+        user_profile_age,
+      </if>
+      <if test="userProfileGender != null">
+        user_profile_gender,
+      </if>
+      <if test="userProfileProvice != null">
+        user_profile_provice,
+      </if>
+      <if test="userProfileCity != null">
+        user_profile_city,
+      </if>
+      <if test="userProfileJoined != null">
+        user_profile_joined,
+      </if>
+      <if test="userProfileLastonline != null">
+        user_profile_lastOnline,
+      </if>
+      <if test="userProfilePictures != null">
+        user_profile_pictures,
+      </if>
+      <if test="userProfileHeadphoto != null">
+        user_profile_headPhoto,
+      </if>
+      <if test="userProfileBirth != null">
+        user_profile_birth,
+      </if>
+      <if test="userProfileComment != null">
+        user_profile_Comment,
+      </if>
+      <if test="userProfilePhone != null">
+        user_profile_phone,
+      </if>
+      <if test="userProfileWebsite != null">
+        user_profile_website,
+      </if>
+      <if test="userid != null">
+        userId,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userProfileId != null">
+        #{userProfileId,jdbcType=INTEGER},
+      </if>
+      <if test="userProfileName != null">
+        #{userProfileName,jdbcType=VARCHAR},
+      </if>
+      <if test="userProfileAge != null">
+        #{userProfileAge,jdbcType=VARCHAR},
+      </if>
+      <if test="userProfileGender != null">
+        #{userProfileGender,jdbcType=CHAR},
+      </if>
+      <if test="userProfileProvice != null">
+        #{userProfileProvice,jdbcType=VARCHAR},
+      </if>
+      <if test="userProfileCity != null">
+        #{userProfileCity,jdbcType=VARCHAR},
+      </if>
+      <if test="userProfileJoined != null">
+        #{userProfileJoined,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userProfileLastonline != null">
+        #{userProfileLastonline,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userProfilePictures != null">
+        #{userProfilePictures,jdbcType=VARCHAR},
+      </if>
+      <if test="userProfileHeadphoto != null">
+        #{userProfileHeadphoto,jdbcType=VARCHAR},
+      </if>
+      <if test="userProfileBirth != null">
+        #{userProfileBirth,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userProfileComment != null">
+        #{userProfileComment,jdbcType=VARCHAR},
+      </if>
+      <if test="userProfilePhone != null">
+        #{userProfilePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="userProfileWebsite != null">
+        #{userProfileWebsite,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null">
+        #{userid,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.officestaff.bean.UserProfileExample" resultType="java.lang.Long">
+    select count(*) from user_profile
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update user_profile
+    <set>
+      <if test="record.userProfileId != null">
+        user_profile_Id = #{record.userProfileId,jdbcType=INTEGER},
+      </if>
+      <if test="record.userProfileName != null">
+        user_profile_name = #{record.userProfileName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userProfileAge != null">
+        user_profile_age = #{record.userProfileAge,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userProfileGender != null">
+        user_profile_gender = #{record.userProfileGender,jdbcType=CHAR},
+      </if>
+      <if test="record.userProfileProvice != null">
+        user_profile_provice = #{record.userProfileProvice,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userProfileCity != null">
+        user_profile_city = #{record.userProfileCity,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userProfileJoined != null">
+        user_profile_joined = #{record.userProfileJoined,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.userProfileLastonline != null">
+        user_profile_lastOnline = #{record.userProfileLastonline,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.userProfilePictures != null">
+        user_profile_pictures = #{record.userProfilePictures,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userProfileHeadphoto != null">
+        user_profile_headPhoto = #{record.userProfileHeadphoto,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userProfileBirth != null">
+        user_profile_birth = #{record.userProfileBirth,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.userProfileComment != null">
+        user_profile_Comment = #{record.userProfileComment,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userProfilePhone != null">
+        user_profile_phone = #{record.userProfilePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userProfileWebsite != null">
+        user_profile_website = #{record.userProfileWebsite,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userid != null">
+        userId = #{record.userid,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update user_profile
+    set user_profile_Id = #{record.userProfileId,jdbcType=INTEGER},
+      user_profile_name = #{record.userProfileName,jdbcType=VARCHAR},
+      user_profile_age = #{record.userProfileAge,jdbcType=VARCHAR},
+      user_profile_gender = #{record.userProfileGender,jdbcType=CHAR},
+      user_profile_provice = #{record.userProfileProvice,jdbcType=VARCHAR},
+      user_profile_city = #{record.userProfileCity,jdbcType=VARCHAR},
+      user_profile_joined = #{record.userProfileJoined,jdbcType=TIMESTAMP},
+      user_profile_lastOnline = #{record.userProfileLastonline,jdbcType=TIMESTAMP},
+      user_profile_pictures = #{record.userProfilePictures,jdbcType=VARCHAR},
+      user_profile_headPhoto = #{record.userProfileHeadphoto,jdbcType=VARCHAR},
+      user_profile_birth = #{record.userProfileBirth,jdbcType=TIMESTAMP},
+      user_profile_Comment = #{record.userProfileComment,jdbcType=VARCHAR},
+      user_profile_phone = #{record.userProfilePhone,jdbcType=VARCHAR},
+      user_profile_website = #{record.userProfileWebsite,jdbcType=VARCHAR},
+      userId = #{record.userid,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.officestaff.bean.UserProfile">
+    update user_profile
+    <set>
+      <if test="userProfileName != null">
+        user_profile_name = #{userProfileName,jdbcType=VARCHAR},
+      </if>
+      <if test="userProfileAge != null">
+        user_profile_age = #{userProfileAge,jdbcType=VARCHAR},
+      </if>
+      <if test="userProfileGender != null">
+        user_profile_gender = #{userProfileGender,jdbcType=CHAR},
+      </if>
+      <if test="userProfileProvice != null">
+        user_profile_provice = #{userProfileProvice,jdbcType=VARCHAR},
+      </if>
+      <if test="userProfileCity != null">
+        user_profile_city = #{userProfileCity,jdbcType=VARCHAR},
+      </if>
+      <if test="userProfileJoined != null">
+        user_profile_joined = #{userProfileJoined,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userProfileLastonline != null">
+        user_profile_lastOnline = #{userProfileLastonline,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userProfilePictures != null">
+        user_profile_pictures = #{userProfilePictures,jdbcType=VARCHAR},
+      </if>
+      <if test="userProfileHeadphoto != null">
+        user_profile_headPhoto = #{userProfileHeadphoto,jdbcType=VARCHAR},
+      </if>
+      <if test="userProfileBirth != null">
+        user_profile_birth = #{userProfileBirth,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userProfileComment != null">
+        user_profile_Comment = #{userProfileComment,jdbcType=VARCHAR},
+      </if>
+      <if test="userProfilePhone != null">
+        user_profile_phone = #{userProfilePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="userProfileWebsite != null">
+        user_profile_website = #{userProfileWebsite,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null">
+        userId = #{userid,jdbcType=INTEGER},
+      </if>
+    </set>
+    where user_profile_Id = #{userProfileId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByNameSelective" parameterType="com.officestaff.bean.UserProfile">
+    update user_profile
+    <set>
+      <if test="userProfileName != null">
+        user_profile_name = #{userProfileName,jdbcType=VARCHAR},
+      </if>
+      <if test="userProfileAge != null">
+        user_profile_age = #{userProfileAge,jdbcType=VARCHAR},
+      </if>
+      <if test="userProfileGender != null">
+        user_profile_gender = #{userProfileGender,jdbcType=CHAR},
+      </if>
+      <if test="userProfileProvice != null">
+        user_profile_provice = #{userProfileProvice,jdbcType=VARCHAR},
+      </if>
+      <if test="userProfileCity != null">
+        user_profile_city = #{userProfileCity,jdbcType=VARCHAR},
+      </if>
+      <if test="userProfileJoined != null">
+        user_profile_joined = #{userProfileJoined,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userProfileLastonline != null">
+        user_profile_lastOnline = #{userProfileLastonline,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userProfilePictures != null">
+        user_profile_pictures = #{userProfilePictures,jdbcType=VARCHAR},
+      </if>
+      <if test="userProfileHeadphoto != null">
+        user_profile_headPhoto = #{userProfileHeadphoto,jdbcType=VARCHAR},
+      </if>
+      <if test="userProfileBirth != null">
+        user_profile_birth = #{userProfileBirth,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userProfileComment != null">
+        user_profile_Comment = #{userProfileComment,jdbcType=VARCHAR},
+      </if>
+      <if test="userProfilePhone != null">
+        user_profile_phone = #{userProfilePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="userProfileWebsite != null">
+        user_profile_website = #{userProfileWebsite,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null">
+        userId = #{userid,jdbcType=INTEGER},
+      </if>
+    </set>
+    where  user_profile_name = #{userProfileName,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.officestaff.bean.UserProfile">
+    update user_profile
+    set user_profile_name = #{userProfileName,jdbcType=VARCHAR},
+      user_profile_age = #{userProfileAge,jdbcType=VARCHAR},
+      user_profile_gender = #{userProfileGender,jdbcType=CHAR},
+      user_profile_provice = #{userProfileProvice,jdbcType=VARCHAR},
+      user_profile_city = #{userProfileCity,jdbcType=VARCHAR},
+      user_profile_joined = #{userProfileJoined,jdbcType=TIMESTAMP},
+      user_profile_lastOnline = #{userProfileLastonline,jdbcType=TIMESTAMP},
+      user_profile_pictures = #{userProfilePictures,jdbcType=VARCHAR},
+      user_profile_headPhoto = #{userProfileHeadphoto,jdbcType=VARCHAR},
+      user_profile_birth = #{userProfileBirth,jdbcType=TIMESTAMP},
+      user_profile_Comment = #{userProfileComment,jdbcType=VARCHAR},
+      user_profile_phone = #{userProfilePhone,jdbcType=VARCHAR},
+      user_profile_website = #{userProfileWebsite,jdbcType=VARCHAR},
+      userId = #{userid,jdbcType=INTEGER}
+    where user_profile_Id = #{userProfileId,jdbcType=INTEGER}
+  </update>
+</mapper>
